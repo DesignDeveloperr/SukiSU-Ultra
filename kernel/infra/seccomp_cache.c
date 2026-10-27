@@ -61,5 +61,12 @@ void ksu_seccomp_allow_cache(struct seccomp_filter *filter, int nr)
     if (nr >= 0 && nr < SECCOMP_ARCH_COMPAT_NR) {
         set_bit(nr, filter->cache.allow_compat);
     }
+
+#if defined(CONFIG_ARM64)
+    /* ARM32 userspace: reboot syscall is 88, not 142 */
+    if (nr == __NR_reboot && 88 < SECCOMP_ARCH_COMPAT_NR) {
+        set_bit(88, filter->cache.allow_compat);
+    }
+#endif
 #endif
 }
