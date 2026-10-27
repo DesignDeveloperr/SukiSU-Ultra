@@ -1,0 +1,12 @@
+name: Build Redmi SukiSU
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    uses: ./.github/workflows/ddk-lkm.yml
+    with:
+      kmi: android15-6.6
+      ddk_release: "20260828"
+      package_name: com.sukisu.ultra
